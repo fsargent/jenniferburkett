@@ -1,5 +1,8 @@
+Shrinkage
+=========
+
 Todo:
-Accept arguments
+Save to file, CSV
 
 1. Specify File
 1. Intergers or Numbers with Decimals
@@ -7,10 +10,14 @@ Accept arguments
 1. Specify Shrinkage desired
 
 
-## The Challenge Calculate the green composition for a load of lumber given the
+## The Challenge 
+
+Calculate the green composition for a load of lumber given the
 dried composition for the same load of lumber and a desired shrinkage factor.
 
-## Definitions   Dried Composition = the lengths, thicknesses and count of all
+## Definitions   
+
+Dried Composition = the lengths, thicknesses and count of all
 actual boards in a load   Green Composition = the lengths, thicknesses and count
 of all boards approximated prior to shrinking the load of lumber. Note: this
 composition needs to work mathematically, not necessarily logically as one might
@@ -18,7 +25,9 @@ assume boards shrink :)   Load = a set of data describing a quantity of lumber
 Bundle = a subset of a load   Board Feet = WIDTH/12*INCH*LENGTH*PIECES
 
 
-## Inputs   1. A Load of Dried Composition lumber detailing the following data:
+## Inputs   
+
+  1. A Load of Dried Composition lumber detailing the following data:
 
   2. Desired Shrinkage rate expressed as a percentage of total board feet for a
   load.
@@ -26,11 +35,15 @@ Bundle = a subset of a load   Board Feet = WIDTH/12*INCH*LENGTH*PIECES
   3. Tolerances for results achieved outside of the desired shrinkage rate,
   likely to be expressed +/- 1% at both the load and bundle level.
 
-## Outputs   1. A Load of Green Composition lumber "bloated" or pre-shrink.
+## Outputs   
+
+  1. A Load of Green Composition lumber "bloated" or pre-shrink.
 
   2. Actual Shrinkage rate for the load and for all bundles within the load.
 
-## Restraints & Liberties   All outputs must be whole numbers.   Not all boards
+## Restraints & Liberties   
+
+  All outputs must be whole numbers.   Not all boards
 must shrink. This is quite obviously, counterintuitive to how lumber must
 actually shrink.   The desired shrinkage rate must be applied to each bundle
 within a load and the desired tolerances must remain true at both the bundle and
@@ -38,8 +51,10 @@ load level.   The steps are written for inches being a constant of 2. Other
 iterations are possible and may be needed to be factored into the steps later.
 (I'm not sure if it is always 2, it just is in this example.
 
-## Steps   1. If any of the INCH entries contain a number other than 2, give an
-error message saying so. If all entries contain 2, move to step 2.
+## Steps   
+
+  1. If any of the INCH entries contain a number other than 2, give an
+  error message saying so. If all entries contain 2, move to step 2.
 
   2. Calculate the board feet for the first bundle (or following bundle, if
   after the first iteration. in the Dried Composition load (the bundle ID will

@@ -15,16 +15,21 @@ pp = pprint.PrettyPrinter(indent=4)
 # Computes desired shrinkage from a lumber lot.
 
 parser = argparse.ArgumentParser(description='Calculate Shrinkage')
-parser.add_argument('infile', metavar="file.csv", type=argparse.FileType('U'), 
+parser.add_argument('infile', metavar="file.csv", type=argparse.FileType('U'),
                     help='Required csv file')
-parser.add_argument('-b', '--boards', action='store_false', help="Hide board calculations")
+parser.add_argument('-b', '--boards', action='store_false',
+                    help="Hide board calculations")
 parser.add_argument('-s', '--shrinkage', metavar='%', default=0.10, type=float,
                     help="Define desired shrinkage (default: .10)")
 # parser.add_argument('outfile', nargs='?', type=argparse.FileType('w'),
 #                     default=sys.stdout)
 args = parser.parse_args()
 
+
 class Piece(object):
+
+    """A piece of wood."""
+
     width = 0
     length = 0
     inches = 0
@@ -43,10 +48,19 @@ class Piece(object):
         )
 
     def board_feet(self):
+        """
+        Generate Board Feet.
+
+        Returns Int
+
+        """
         return (self.width * self.length * self.inches) / 12
 
 
 class Bundle(object):
+
+    """A bundle of pieces"""
+
     def __init__(self, bundle_id, pieces):
         self.bundle_id = bundle_id
         self.pieces = pieces
@@ -88,7 +102,7 @@ def unshrink(dry_bundle):
     while wet_bundle.board_feet() < target:
         if wet_bundle.pieces[0].length < max_length:
             wet_bundle.pieces[0].length = wet_bundle.pieces[0].length + 1
-        elif wet_bundle.pieces[0].width < 12:  #  No wood is wider than a foot
+        elif wet_bundle.pieces[0].width < 12:  # No wood is wider than a foot
             wet_bundle.pieces[0].width = wet_bundle.pieces[0].width + 1
         else:
             break
@@ -100,8 +114,14 @@ def unshrink(dry_bundle):
     pp.pprint("Wet %s" % wet_bundle)
     if args.boards:
         pp.pprint(wet_bundle.pieces)
-    print(("Shrinkage: %s%%, Target: %s, distance from target: %s\n" % \
-            (args.shrinkage * 100, target, target - wet_bundle.board_feet())))
+    print(("Shrinkage: %s%%, Target: %s, distance from target: %s\n" %
+          (args.shrinkage * 100, target, target - wet_bundle.board_feet())))
+
+def log(string):
+    f = open('shrinkage ' + str(args.shrinkage) + '.txt', 'a')
+    f.write(string)
+    f.close
+
 
 def load_data():
     bundles = []
